@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use backend\models\Teachers;
+use backend\models\EducationQualifications;
 
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
@@ -19,17 +20,21 @@ use yii\helpers\ArrayHelper;
   
 
     <?= $form->field($model, 'TeacherId')->widget(Select2::classname(),[
-        'data' => ArrayHelper::map(Teachers::find()->asArray()->all(), 'teacherId', 'Name'),
-        'language' => 'en',
-        'options' => ['placeholder' => 'select Teacher','teacherId' => 'Name'],
-        'pluginOptions' => [
-        'allowClear' => true
+            'data' => ArrayHelper::map(Teachers::find()->asArray()->all(), 'teacherId', 'Name'),
+            'language' => 'en',
+            'options' => ['placeholder' => 'select Teacher','teacherId' => 'Name'],
+            'pluginOptions' => [
+            'allowClear' => true
         ],
-    ]);
- ?>
+        ]);
+    ?>
     
-
-    <?= $form->field($model, 'QualificationId')->textInput() ?>
+    <?= $form->field($model, 'QualificationId')->dropDownList(
+        ArrayHelper::map(EducationQualifications::find()->all(),'QualificationId','Qualification'),
+        ['prompt'=>'Select Qualification']
+                                                        
+    ) ?>
+    
 
     <?= $form->field($model, 'Year')->textInput(['maxlength' => true]) ?>
 

@@ -99,4 +99,5 @@ class Teachers extends \yii\db\ActiveRecord
     {
         return $this->hasMany(TeacherHasProfessionalQualifications::className(), ['TeacherId' => 'teacherId']);
     }
+
 }

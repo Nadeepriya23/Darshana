@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use backend\models\Teachers;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Salary */
@@ -9,10 +11,16 @@ use yii\widgets\DetailView;
 $this->title = $model->ComputerNo;
 $this->params['breadcrumbs'][] = ['label' => 'Salaries', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$user = Teachers::find()->where(['ComputerNo' => $model->ComputerNo])->one();
+
 ?>
+
+
 <div class="salary-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($user->Name) ?></h1>
+    
+
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->ComputerNo], ['class' => 'btn btn-primary']) ?>

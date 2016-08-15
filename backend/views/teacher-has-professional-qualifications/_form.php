@@ -2,6 +2,11 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use backend\models\Teachers;
+use backend\models\ProfessionalQualifications;
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
+
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\TeacherHasProfessionalQualifications */
@@ -12,10 +17,23 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'TeacherId')->textInput() ?>
-
-    <?= $form->field($model, 'QualificationId')->textInput() ?>
-
+        <!-- set select2 widget for get teachers names-->
+        <?= $form->field($model, 'TeacherId')->widget(Select2::classname(),[
+            'data' => ArrayHelper::map(Teachers::find()->asArray()->all(), 'teacherId', 'Name'),
+            'language' => 'en',
+            'options' => ['placeholder' => 'select Teacher','teacherId' => 'Name'],
+            'pluginOptions' => [
+            'allowClear' => true
+        ],
+        ]);
+    ?>
+    
+    <?= $form->field($model, 'QualificationId')->dropDownList(
+        ArrayHelper::map(ProfessionalQualifications::find()->all(),'QualificationId','Qualification'),
+        ['prompt'=>'Select Qualification']
+                                                        
+    ) ?>
+    
     <?= $form->field($model, 'Year')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'Institute')->textInput(['maxlength' => true]) ?>
